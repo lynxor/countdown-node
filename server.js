@@ -16,11 +16,11 @@ var putCountdowns = function (controllerAction) {
 		window.c.clear();
 
 		var success = function () {
-			resp.writeHead(200, {"Content-type":"text/html"});
+			resp.writeHead(200, {"Content-type" : "text/html"});
 			resp.end(window.document.innerHTML);
 		};
-		var failure = function () {
-			resp.writeHead(404, {"Content-type":"text/html"});
+                var failure = function () {
+			resp.writeHead(404, {"Content-type" : "text/html"});
 			resp.end(error404);
 		};
 
@@ -31,10 +31,10 @@ var putCountdowns = function (controllerAction) {
 
 // Router
 var router = bee.route({
-	"r`^/public.*`" : function(req,res) {
-		file.serve(req,res);
+	"r`^/public.*`" : function (req, res) {
+		file.serve(req, res);
 	},
-	"r`^/$`" : function (req,res) {
+	"r`^/$`" : function (req, res) {
 		console.log("Month");
 		client.client(req, res, putCountdowns(function (c) {
 			return function (callback) {
@@ -44,18 +44,18 @@ var router = bee.route({
 	},
 
 	"/add" : function (req, res) {
-		res.writeHead(200, {"Content-type":"text/html"});
+		res.writeHead(200, {"Content-type" : "text/html"});
 		res.end(addHtml);
 	},
 
-	"/day" : function (req,res) {
+	"/day" : function (req, res) {
 		client.client(req, res, putCountdowns(function (c) {
 			return function (callback) {
 				c.nextDay(callback);
 			};
 		}));
 	},
-	"/week" : function (req,res) {
+	"/week" : function (req, res) {
 	    console.log("weeko");
 		client.client(req, res, putCountdowns(function (c) {
 			return function (callback) {
@@ -63,28 +63,28 @@ var router = bee.route({
 			};
 		}));
 	},
-	"/month" : function (req,res) {
+	"/month" : function (req, res) {
 		client.client(req, res, putCountdowns(function (c) {
 			return function (callback) {
 				c.nextMonth(callback);
 			};
 		}));
 	},
-	"/year" : function (req,res) {
+	"/year" : function (req, res) {
 		client.client(req, res, putCountdowns(function (c) {
 			return function (callback) {
 				c.nextYear(callback);
 			};
 		}));
 	},
-	"/random" : function (req,res) {
-		client.client(req, res, putCountdowns(function (c) {
-			return function (callback) {
-				c.random(callback);
-			};
-		}));
-	},
-	"r`/(.+)`" : function (req, res, matches) {
+    "/random" : function (req, res) {
+                client.client(req, res, putCountdowns(function (c) {
+	                return function (callback) {
+		                c.random(callback);
+	                };
+	        }));
+    },
+    "r`/(.+)`" : function (req, res, matches) {
 		var id = matches[0];
 		console.log("ID: " + id);
 		client.client(req, res, putCountdowns(function (c) {
@@ -94,11 +94,11 @@ var router = bee.route({
 		}));
 	},
 
-	"`404`" : function (req,res) {
+	"`404`" : function (req, res) {
 		file.serveFile("/404.html", 404, {}, req, res);
 	},
 
-	"`503`" : function (req,res,err) {
+	"`503`" : function (req, res, err) {
 		console.log("matched 503 because:");
 		console.error(err.stack);
 		file.serveFile("/503.html", 503, {}, req, res);

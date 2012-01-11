@@ -42,8 +42,8 @@ var load = function () {
 		var client = jsdom.jsdom(content.html, null, {
 			// set features to false to parse initial html
 			features: {
-				'FetchExternalResources':false,
-				'ProcessExternalResources':false
+				'FetchExternalResources': false,
+				'ProcessExternalResources': false
 			}
 		});
 		
