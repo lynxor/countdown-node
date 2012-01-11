@@ -3,4 +3,4 @@
 	url = git@github.com:nicokruger/timo-js
 [submodule "public/vendor"]
 	path = public/vendor
-	url = git@github.com:nicokruger/common-js-libs
+	url = git@github.com:lynxor/common-js-libs
